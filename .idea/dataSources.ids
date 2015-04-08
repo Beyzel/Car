@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - Avtoschool@localhost" uuid="b27b3ed1-842d-4353-966a-e84606a7e0e7">
+    <database-info product="MySQL" version="5.6.21-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="avtoschool"/>
+    <table name="admin" schema="" catalog="avtoschool" type="TABLE">
+      <column name="User_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="User_id"/>
+      <foreign-key name="FK_ADMIN_1" columns="User_id" ref-table="usser" ref-schema="" ref-catalog="avtoschool" ref-columns="User_id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="answer" schema="" catalog="avtoschool" type="TABLE">
+      <column name="answer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="question_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="answer_text" sqlType="VARCHAR" precision="300" scale="0" nullable="false" jdbcType="12"/>
+      <column name="correct" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="answer_id"/>
+      <foreign-key name="FK_ANSWER_1" columns="question_id" ref-table="question" ref-schema="" ref-catalog="avtoschool" ref-columns="question_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="FK_USER_ANSWER_4" table="user_answer" schema="" catalog="avtoschool" columns="answer_id"/>
+      <index name="FK_ANSWER_1" unique="false" columns="question_id"/>
+    </table>
+    <table name="question" schema="" catalog="avtoschool" type="TABLE">
+      <column name="question_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="ticket_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="topic_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="question" sqlType="VARCHAR" precision="2000" scale="0" nullable="false" jdbcType="12"/>
+      <column name="help" sqlType="VARCHAR" precision="2000" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="MEDIUMBLOB" precision="16777215" scale="0" nullable="true" jdbcType="-4"/>
+      <primary-key name="PRIMARY" columns="question_id"/>
+      <foreign-key name="FK_QUESTION_1" columns="ticket_id" ref-table="ticket" ref-schema="" ref-catalog="avtoschool" ref-columns="Ticket_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_QUESTION_2" columns="topic_id" ref-table="topic" ref-schema="" ref-catalog="avtoschool" ref-columns="Topic_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="FK_ANSWER_1" table="answer" schema="" catalog="avtoschool" columns="question_id"/>
+      <exported-key name="FK_USER_ANSWER_3" table="user_answer" schema="" catalog="avtoschool" columns="question_id"/>
+      <index name="Ticket_id_idx" unique="false" columns="ticket_id"/>
+      <index name="Topic_id_idx" unique="false" columns="topic_id"/>
+    </table>
+    <table name="student" schema="" catalog="avtoschool" type="TABLE">
+      <column name="User_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="User_id"/>
+      <foreign-key name="FK_STUDENT_1" columns="User_id" ref-table="usser" ref-schema="" ref-catalog="avtoschool" ref-columns="User_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="FK_TEST_2" table="test" schema="" catalog="avtoschool" columns="user_id"/>
+      <exported-key name="FK_USER_ANSWER_1" table="user_answer" schema="" catalog="avtoschool" columns="user_id"/>
+    </table>
+    <table name="test" schema="" catalog="avtoschool" type="TABLE">
+      <column name="test_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="test_id"/>
+      <foreign-key name="FK_TEST_2" columns="user_id" ref-table="student" ref-schema="" ref-catalog="avtoschool" ref-columns="User_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="FK_USER_ANSWER_2" table="user_answer" schema="" catalog="avtoschool" columns="test_id"/>
+      <index name="user_id_idx" unique="false" columns="user_id"/>
+    </table>
+    <table name="ticket" schema="" catalog="avtoschool" type="TABLE">
+      <column name="Ticket_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <primary-key name="PRIMARY" columns="Ticket_id"/>
+      <exported-key name="FK_QUESTION_1" table="question" schema="" catalog="avtoschool" columns="ticket_id"/>
+    </table>
+    <table name="topic" schema="" catalog="avtoschool" type="TABLE">
+      <column name="Topic_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Topic_Name" sqlType="VARCHAR" precision="300" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="Topic_id"/>
+      <exported-key name="FK_QUESTION_2" table="question" schema="" catalog="avtoschool" columns="topic_id"/>
+    </table>
+    <table name="user_answer" schema="" catalog="avtoschool" type="TABLE">
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="test_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="question_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="answer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="user_id,test_id,question_id,answer_id"/>
+      <foreign-key name="FK_USER_ANSWER_1" columns="user_id" ref-table="student" ref-schema="" ref-catalog="avtoschool" ref-columns="User_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_USER_ANSWER_2" columns="test_id" ref-table="test" ref-schema="" ref-catalog="avtoschool" ref-columns="test_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_USER_ANSWER_3" columns="question_id" ref-table="question" ref-schema="" ref-catalog="avtoschool" ref-columns="question_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_USER_ANSWER_4" columns="answer_id" ref-table="answer" ref-schema="" ref-catalog="avtoschool" ref-columns="answer_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="FK_USER_ANSWER_2" unique="false" columns="test_id"/>
+      <index name="FK_USER_ANSWER_3" unique="false" columns="question_id"/>
+      <index name="FK_USER_ANSWER_4" unique="false" columns="answer_id"/>
+    </table>
+    <table name="usser" schema="" catalog="avtoschool" type="TABLE">
+      <column name="User_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Login" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Mail" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Password" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="User_id"/>
+      <exported-key name="FK_ADMIN_1" table="admin" schema="" catalog="avtoschool" columns="User_id"/>
+      <exported-key name="FK_STUDENT_1" table="student" schema="" catalog="avtoschool" columns="User_id"/>
+    </table>
+  </data-source>
+</component>
