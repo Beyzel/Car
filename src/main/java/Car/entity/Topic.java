@@ -24,7 +24,11 @@ public class Topic {
 
     @OneToMany
     @JoinColumn(name = "Topic_id")
-    private Set<Topic> topics = new HashSet<>(0);
+    private Set<Question> questions = new HashSet<>(0);
+
+    @OneToMany
+    @JoinColumn(name = "Topic_id")
+    private Set<Test> tests = new HashSet<>(0);
 
     public int getTopic_id() {
         return Topic_id;
@@ -42,13 +46,19 @@ public class Topic {
         TopicName = topicName;
     }
 
-    public Set<Topic> getTopics() {
-        return topics;
+    public Set<Question> getQuestions() {
+        return questions;
     }
 
-    public void setTopics(Set<Topic> topics) {
-        this.topics = topics;
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
     }
 
+    public Set<Test> getTests() {
+        return tests;
+    }
 
+    public void setTests(Set<Test> tests) {
+        this.tests = tests;
+    }
 }

@@ -7,16 +7,17 @@
     <title>Тест по теме ${topic.topicName}</title>
 </head>
 <body>
-    <input type="hidden" class="testId" value="${topic.topic_id}"/>
-    <div class="container">
-        <%@include file="menu.jsp" %>
-        <%@include file="testForm.jsp" %>
-        <br><br>
+<input type="hidden" class="testId" value="${topic.topic_id}"/>
 
-        <div style="text-align: center;">
-            <%@include file="footer.jsp" %>
-        </div>
+<div class="container">
+    <%@include file="menu.jsp" %>
+    <%@include file="testForm.jsp" %>
+    <br><br>
+
+    <div style="text-align: center;">
+        <%@include file="footer.jsp" %>
     </div>
+</div>
 
 </body>
 </html>

@@ -7,16 +7,16 @@
     <title>Тесты</title>
 </head>
 <body>
-    <div class="container">
+<div class="container">
 
-        <%@include file="menu.jsp" %>
-        <%@include file="ticketsAndTopics.jsp" %>
-        <br><br>
+    <%@include file="menu.jsp" %>
+    <%@include file="ticketsAndTopics.jsp" %>
+    <br><br>
 
-        <div style="text-align: center;">
-            <%@include file="footer.jsp" %>
-        </div>
+    <div style="text-align: center;">
+        <%@include file="footer.jsp" %>
     </div>
-    <!-- /container -->
+</div>
+<!-- /container -->
 </body>
 </html>

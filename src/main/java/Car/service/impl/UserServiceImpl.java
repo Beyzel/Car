@@ -1,14 +1,12 @@
 package Car.service.impl;
 
-import Car.entity.Test;
-import Car.entity.User;
 import Car.dao.UserDao;
+import Car.entity.User;
 import Car.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -29,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List getAllUsers() throws Exception {
+    public List<User> getAllUsers() throws Exception {
         return userDAO.getAllUsers();
     }
 
@@ -39,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List findOne(int id) throws Exception {
+    public List<User> findOne(int id) throws Exception {
         return userDAO.findOne(id);
     }
 

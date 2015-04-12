@@ -12,7 +12,7 @@
     <%@include file="menu.jsp" %>
 
     <c:forEach var="users" items="${user}">
-            <h1> ${users.login}</h1>
+        <h1> ${users.login}</h1>
     </c:forEach>
 
     <div style="text-align: center;">

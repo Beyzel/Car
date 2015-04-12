@@ -1,7 +1,8 @@
 package Car.service.impl;
 
 import Car.dao.TopicDao;
-import Car.dao.UserDao;
+import Car.entity.Answer;
+import Car.entity.Question;
 import Car.entity.Topic;
 import Car.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,12 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List getTopicQuestions(Integer topicId) throws Exception {
+    public List<Question> getTopicQuestions(Integer topicId) throws Exception {
         return topicDao.getTopicQuestions(topicId);
     }
 
     @Override
-    public List getAnswersToTopicQuestions(Integer topicId) throws Exception {
+    public List<Answer> getAnswersToTopicQuestions(Integer topicId) throws Exception {
         return topicDao.getAnswersToTopicQuestions(topicId);
     }
 }

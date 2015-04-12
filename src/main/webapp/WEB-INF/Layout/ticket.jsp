@@ -7,17 +7,18 @@
     <title>Тест по билету #${ticketId}</title>
 </head>
 <body>
-    <input type="hidden" class="testId" value="${ticketId}"/>
-    <div class="container">
+<input type="hidden" class="testId" value="${ticketId}"/>
 
-        <%@include file="menu.jsp" %>
-        <%@include file="testForm.jsp" %>
-        <br><br>
+<div class="container">
 
-        <div style="text-align: center;">
-            <%@include file="footer.jsp" %>
-        </div>
+    <%@include file="menu.jsp" %>
+    <%@include file="testForm.jsp" %>
+    <br><br>
+
+    <div style="text-align: center;">
+        <%@include file="footer.jsp" %>
     </div>
+</div>
 
 </body>
 </html>

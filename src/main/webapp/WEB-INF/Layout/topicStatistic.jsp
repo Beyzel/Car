@@ -23,23 +23,23 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td width="30%">${test.userAnswers.get(0).question.topic.topicName}</td>
-                        <td width="20%">${test.date}</td>
-                        <c:forEach var="userAnswer" items="${test.userAnswers}">
-                            <td align="center">
-                                <c:choose>
-                                    <c:when test="${userAnswer.answer.correct}">
-                                        +
-                                    </c:when>
+                <tr>
+                    <td width="30%">${test.userAnswers.get(0).question.topic.topicName}</td>
+                    <td width="20%">${test.date}</td>
+                    <c:forEach var="userAnswer" items="${test.userAnswers}">
+                        <td align="center">
+                            <c:choose>
+                                <c:when test="${userAnswer.answer.correct}">
+                                    +
+                                </c:when>
 
-                                    <c:when test="${!userAnswer.answer.correct}">
-                                        -
-                                    </c:when>
-                                </c:choose>
-                            </td>
-                        </c:forEach>
-                    </tr>
+                                <c:when test="${!userAnswer.answer.correct}">
+                                    -
+                                </c:when>
+                            </c:choose>
+                        </td>
+                    </c:forEach>
+                </tr>
                 </tbody>
             </table>
         </c:forEach>

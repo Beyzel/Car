@@ -7,11 +7,6 @@
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <schema name="" catalog="avtoschool"/>
-    <table name="admin" schema="" catalog="avtoschool" type="TABLE">
-      <column name="User_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="User_id"/>
-      <foreign-key name="FK_ADMIN_1" columns="User_id" ref-table="usser" ref-schema="" ref-catalog="avtoschool" ref-columns="User_id" update-rule="0" delete-rule="0" deferrability="2"/>
-    </table>
     <table name="answer" schema="" catalog="avtoschool" type="TABLE">
       <column name="answer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="question_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -37,32 +32,33 @@
       <index name="Ticket_id_idx" unique="false" columns="ticket_id"/>
       <index name="Topic_id_idx" unique="false" columns="topic_id"/>
     </table>
-    <table name="student" schema="" catalog="avtoschool" type="TABLE">
-      <column name="User_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="User_id"/>
-      <foreign-key name="FK_STUDENT_1" columns="User_id" ref-table="usser" ref-schema="" ref-catalog="avtoschool" ref-columns="User_id" update-rule="0" delete-rule="0" deferrability="2"/>
-      <exported-key name="FK_TEST_2" table="test" schema="" catalog="avtoschool" columns="user_id"/>
-      <exported-key name="FK_USER_ANSWER_1" table="user_answer" schema="" catalog="avtoschool" columns="user_id"/>
-    </table>
     <table name="test" schema="" catalog="avtoschool" type="TABLE">
       <column name="test_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Ticket_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Topic_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="date" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
       <primary-key name="PRIMARY" columns="test_id"/>
-      <foreign-key name="FK_TEST_2" columns="user_id" ref-table="student" ref-schema="" ref-catalog="avtoschool" ref-columns="User_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_TEST_1" columns="Ticket_id" ref-table="ticket" ref-schema="" ref-catalog="avtoschool" ref-columns="Ticket_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_TEST_2" columns="user_id" ref-table="usser" ref-schema="" ref-catalog="avtoschool" ref-columns="User_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_TEST_3" columns="Topic_id" ref-table="topic" ref-schema="" ref-catalog="avtoschool" ref-columns="Topic_id" update-rule="0" delete-rule="0" deferrability="2"/>
       <exported-key name="FK_USER_ANSWER_2" table="user_answer" schema="" catalog="avtoschool" columns="test_id"/>
+      <index name="FK_TEST_1" unique="false" columns="Ticket_id"/>
+      <index name="FK_TEST_3" unique="false" columns="Topic_id"/>
       <index name="user_id_idx" unique="false" columns="user_id"/>
     </table>
     <table name="ticket" schema="" catalog="avtoschool" type="TABLE">
       <column name="Ticket_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <primary-key name="PRIMARY" columns="Ticket_id"/>
       <exported-key name="FK_QUESTION_1" table="question" schema="" catalog="avtoschool" columns="ticket_id"/>
+      <exported-key name="FK_TEST_1" table="test" schema="" catalog="avtoschool" columns="Ticket_id"/>
     </table>
     <table name="topic" schema="" catalog="avtoschool" type="TABLE">
       <column name="Topic_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="Topic_Name" sqlType="VARCHAR" precision="300" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="Topic_id"/>
       <exported-key name="FK_QUESTION_2" table="question" schema="" catalog="avtoschool" columns="topic_id"/>
+      <exported-key name="FK_TEST_3" table="test" schema="" catalog="avtoschool" columns="Topic_id"/>
     </table>
     <table name="user_answer" schema="" catalog="avtoschool" type="TABLE">
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -78,14 +74,22 @@
       <index name="FK_USER_ANSWER_3" unique="false" columns="question_id"/>
       <index name="FK_USER_ANSWER_4" unique="false" columns="answer_id"/>
     </table>
+    <table name="user_role" schema="" catalog="avtoschool" type="TABLE">
+      <column name="User_role_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Role" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="User_role_id"/>
+      <exported-key name="FK_USSER_ROLE_ID" table="usser" schema="" catalog="avtoschool" columns="User_role_id"/>
+    </table>
     <table name="usser" schema="" catalog="avtoschool" type="TABLE">
       <column name="User_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="Login" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <column name="Mail" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <column name="Password" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12"/>
+      <column name="User_role_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="User_id"/>
-      <exported-key name="FK_ADMIN_1" table="admin" schema="" catalog="avtoschool" columns="User_id"/>
-      <exported-key name="FK_STUDENT_1" table="student" schema="" catalog="avtoschool" columns="User_id"/>
+      <foreign-key name="FK_USSER_ROLE_ID" columns="User_role_id" ref-table="user_role" ref-schema="" ref-catalog="avtoschool" ref-columns="User_role_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="FK_TEST_2" table="test" schema="" catalog="avtoschool" columns="user_id"/>
+      <index name="FK_USSER_ROLE_ID" unique="false" columns="User_role_id"/>
     </table>
   </data-source>
 </component>

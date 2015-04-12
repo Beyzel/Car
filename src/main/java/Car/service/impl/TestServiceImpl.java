@@ -1,10 +1,8 @@
 package Car.service.impl;
 
 import Car.dao.TestDao;
-import Car.entity.Test;
-import Car.entity.Ticket;
+import Car.entity.*;
 import Car.service.TestService;
-import jdk.nashorn.internal.objects.NativeRegExp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,23 +18,33 @@ public class TestServiceImpl implements TestService {
     private TestDao testDao;
 
     @Override
-    public List getAllTickets() throws Exception {
+    public List<Ticket> getAllTickets() throws Exception {
         return testDao.getAllTickets();
     }
 
     @Override
-    public List getAllTopics() throws Exception {
+    public List<Topic> getAllTopics() throws Exception {
         return testDao.getAllTopics();
     }
 
     @Override
-    public void addNewTest(Integer userId, Date date) throws Exception {
-        testDao.addNewTest(userId, date);
+    public void addNewTicketTest(Integer userId, Date date, Integer ticketId) throws Exception {
+        testDao.addNewTicketTest(userId, date, ticketId);
     }
 
     @Override
-    public Integer getTestId(Integer userId, Date date) throws Exception {
-        return testDao.getTestId(userId, date);
+    public void addNewTopicTest(Integer userId, Date date, Integer topicId) throws Exception {
+        testDao.addNewTopicTest(userId, date, topicId);
+    }
+
+    @Override
+    public Integer getTestTicketId(Integer userId, Date date, Integer ticketId) throws Exception {
+        return testDao.getTestTicketId(userId, date, ticketId);
+    }
+
+    @Override
+    public Integer getTestTopicId(Integer userId, Date date, Integer topicId) throws Exception {
+        return testDao.getTestTopicId(userId, date, topicId);
     }
 
     @Override
@@ -45,12 +53,12 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List getUserTickets(Integer userId) throws Exception {
+    public List<Test> getUserTickets(Integer userId) throws Exception {
         return testDao.getUserTickets(userId);
     }
 
     @Override
-    public List getUserTestAnswers(Integer userId) throws Exception {
+    public List<UserAnswer> getUserTestAnswers(Integer userId) throws Exception {
         return testDao.getUserTestAnswers(userId);
     }
 
@@ -70,7 +78,27 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List getUserTopics(Integer userId) throws Exception {
+    public List<Test> getUserTopics(Integer userId) throws Exception {
         return testDao.getUserTopics(userId);
+    }
+
+    @Override
+    public Answer getAnswer(Integer answerId) throws Exception {
+        return testDao.getAnswer(answerId);
+    }
+
+    @Override
+    public List<Question> getTicketQuestions(Integer ticketId) throws Exception {
+        return testDao.getTicketQuestions(ticketId);
+    }
+
+    @Override
+    public List<Question> getTopicQuestions(Integer topicId) throws Exception {
+        return testDao.getTopicQuestions(topicId);
+    }
+
+    @Override
+    public Question getQuestion(Integer questionId) throws Exception {
+        return testDao.getQuestion(questionId);
     }
 }

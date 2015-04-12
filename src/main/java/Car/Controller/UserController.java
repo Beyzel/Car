@@ -1,7 +1,6 @@
 package Car.Controller;
 
 import Car.entity.User;
-import Car.service.StudentService;
 import Car.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +16,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private StudentService studentService;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String users(Model model) throws Exception {
@@ -41,7 +37,6 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String doRegister(@ModelAttribute("user") User user) throws Exception {
         userService.saveUser(user);
-        studentService.addStudent();
         return "user-register";
     }
 

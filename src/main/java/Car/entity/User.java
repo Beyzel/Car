@@ -6,6 +6,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Usser")
@@ -15,14 +17,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "User_id")
     private int User_id;
-
-    @OneToOne
-    @JoinColumn(name = "User_id")
-    private Admin admin;
-
-    @OneToOne
-    @JoinColumn(name = "User_id")
-    private Student student;
 
     @Column(name = "Login")
     @Size(min = 1, max = 20)
@@ -38,6 +32,17 @@ public class User {
     @Size(min = 1, max = 16)
     @NotNull
     private String Password;
+
+    @Column(name = "user_role_id")
+    private Integer user_role_id;
+
+//    @ManyToOne
+//    @JoinColumn(name = "User_role_id")
+//    private UserRole userRole;
+
+    @OneToMany
+    @JoinColumn(name = "test_id")
+    private Set<Test> tests = new HashSet<>(0);
 
     public int getUser_id() {
         return User_id;
@@ -71,21 +76,27 @@ public class User {
         Password = password;
     }
 
-    public Admin getAdmin() {
-        return admin;
+//    public UserRole getUserRole() {
+//        return userRole;
+//    }
+//
+//    public void setUserRole(UserRole userRole) {
+//        this.userRole = userRole;
+//    }
+
+    public Set<Test> getTests() {
+        return tests;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
+    public void setTests(Set<Test> tests) {
+        this.tests = tests;
     }
 
-    public Student getStudent() {
-        return student;
+    public Integer getUser_role_id() {
+        return user_role_id;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setUser_role_id(Integer user_role_id) {
+        this.user_role_id = user_role_id;
     }
-
-
 }

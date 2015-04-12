@@ -2,19 +2,13 @@ package Car.dao.impl;
 
 
 import Car.dao.UserDao;
-import Car.entity.Question;
-import Car.entity.Test;
 import Car.entity.User;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.util.List;
 
 @Repository
@@ -40,7 +34,7 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public List getAllUsers() throws Exception {
+    public List<User> getAllUsers() throws Exception {
         String sql = "SELECT * FROM usser";
         SQLQuery query = openSession().createSQLQuery(sql);
         query.addEntity(User.class);
@@ -53,7 +47,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List findOne(int id) throws Exception {
+    public List<User> findOne(int id) throws Exception {
         String sql = "SELECT * FROM usser WHERE usser.User_id = :id";
         SQLQuery query = openSession().createSQLQuery(sql);
         query.setInteger("id", id);
@@ -70,8 +64,8 @@ public class UserDaoImpl implements UserDao {
     public User getUserByLogin(String userLogin) throws Exception {
         String sql =
                 "SELECT * " +
-                "FROM usser u " +
-                "WHERE u.Login = :userLogin";
+                        "FROM usser u " +
+                        "WHERE u.Login = :userLogin";
         SQLQuery query = openSession().createSQLQuery(sql);
         query.setParameter("userLogin", userLogin);
         query.addEntity(User.class);

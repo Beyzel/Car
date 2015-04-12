@@ -8,8 +8,9 @@
 <body>
 <div class="container">
     <%@include file="menu.jsp" %>
-    <%--Login--%>
+
     <form:form commandName="user" cssClass="form-horizontal">
+        <%--Login--%>
         <div class="form-group">
             <label for="login" class="col-sm-2 control-label">Login: </label>
 
@@ -31,6 +32,12 @@
 
             <div class="col-sm-10">
                 <form:password path="password" cssClass="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-10">
+                <form:hidden path="user_role_id" cssClass="form-control" value="2"/>
             </div>
         </div>
 

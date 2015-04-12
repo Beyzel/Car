@@ -18,24 +18,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication().dataSource(dataSource);
-////        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
-////        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
                         "select Login, Password, true as enable  from usser where Login=?")
                 .authoritiesByUsernameQuery(
-                        "SELECT u.Login, \n" +
-                                "\tcase u.User_id\n" +
-                                "\t\twhen (SELECT a.USER_ID\n" +
-                                "\t\t\t  FROM admin a\n" +
-                                "              WHERE u.User_id = a.User_id) then \"ROLE_ADMIN\"\n" +
-                                "\t\twhen (SELECT s.User_id\n" +
-                                "\t\t\t  FROM student s\n" +
-                                "              WHERE u.User_id = s.User_id) then \"ROLE_USER\"\n" +
-                                "\tend as role\n" +
-                                "FROM usser u\n" +
-                                "WHERE u.Login =?");
+                        "SELECT Login, Role\n" +
+                                "FROM usser u JOIN user_role ur ON (u.User_role_id = ur.User_role_id)\n" +
+                                "WHERE u.Login = ?");
     }
 
     @Override

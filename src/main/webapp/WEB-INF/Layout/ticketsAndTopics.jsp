@@ -6,23 +6,25 @@
 </head>
 <body>
 
-    <h3>Билеты:</h3>
-    <div class="list-group">
-        <c:forEach var="ticket" items="${tickets}">
-            <a href="/ticket/${ticket.ticket_id}" class="list-group-item">${ticket.ticket_id}</a>
-        </c:forEach>
-    </div>
+<h3>Билеты:</h3>
 
-    <br><br>
+<div class="list-group">
+    <c:forEach var="ticket" items="${tickets}">
+        <a href="/ticket/${ticket.ticket_id}" class="list-group-item">${ticket.ticket_id}</a>
+    </c:forEach>
+</div>
 
-    <h3>Темы:</h3>
-    <div class="list-group">
+<br><br>
 
-        <c:forEach var="topic" items="${topics}">
-            <a href="/topic/${topic.topic_id}" class="list-group-item">${topic.topicName}</a>
-        </c:forEach>
+<h3>Темы:</h3>
 
-    </div>
+<div class="list-group">
+
+    <c:forEach var="topic" items="${topics}">
+        <a href="/topic/${topic.topic_id}" class="list-group-item">${topic.topicName}</a>
+    </c:forEach>
+
+</div>
 
 </body>
 </html>

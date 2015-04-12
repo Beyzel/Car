@@ -36,7 +36,7 @@ public class Answer {
 
     @OneToMany
     @JoinColumn(name = "Answer_id")
-    private Set<UserAnswer> userAnswers  = new HashSet<>(0);
+    private Set<UserAnswer> userAnswers = new HashSet<>(0);
 
 
     public int getAnswer_id() {
@@ -86,4 +86,6 @@ public class Answer {
     public void setUserAnswers(Set<UserAnswer> userAnswers) {
         this.userAnswers = userAnswers;
     }
+
+
 }

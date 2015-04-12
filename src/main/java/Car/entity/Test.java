@@ -6,9 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "Test")
@@ -24,6 +22,14 @@ public class Test {
     @NotEmpty
     private int User_id;
 
+    @Column(name = "ticket_id")
+//    @NotEmpty
+    private Integer Ticket_id;
+
+    @Column(name = "topic_id")
+//    @NotEmpty
+    private Integer Topic_id;
+
     @Column(name = "date")
     @NotEmpty
     @DateTimeFormat
@@ -31,12 +37,19 @@ public class Test {
 
     @ManyToOne
     @JoinColumn(name = "User_id")
-    private Student student;
+    private User user;
 
     @OneToMany
     @JoinColumn(name = "Test_id")
-    private List<UserAnswer> userAnswers  = new ArrayList<>();
+    private List<UserAnswer> userAnswers = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "Ticket_id")
+    private Ticket ticket;
+
+    @ManyToOne
+    @JoinColumn(name = "Topic_id")
+    private Topic topic;
 
     public Integer getTest_id() {
         return Test_id;
@@ -62,14 +75,6 @@ public class Test {
         this.date = date;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
     public List<UserAnswer> getUserAnswers() {
         return userAnswers;
     }
@@ -84,5 +89,45 @@ public class Test {
 
     public void addUserAnswer(UserAnswer userAnswer) {
         userAnswers.add(userAnswer);
+    }
+
+    public int getTicket_id() {
+        return Ticket_id;
+    }
+
+    public void setTicket_id(int ticket_id) {
+        Ticket_id = ticket_id;
+    }
+
+    public int getTopic_id() {
+        return Topic_id;
+    }
+
+    public void setTopic_id(int topic_id) {
+        Topic_id = topic_id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 }

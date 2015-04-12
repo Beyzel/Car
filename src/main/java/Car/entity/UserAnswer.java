@@ -31,7 +31,7 @@ public class UserAnswer implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "User_id")
-    private Student student;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "Question_id")
@@ -44,14 +44,6 @@ public class UserAnswer implements Serializable {
     @ManyToOne
     @JoinColumn(name = "Answer_id")
     private Answer answer;
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
 
     public Question getQuestion() {
         return question;
@@ -109,5 +101,11 @@ public class UserAnswer implements Serializable {
         User_id = user_id;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

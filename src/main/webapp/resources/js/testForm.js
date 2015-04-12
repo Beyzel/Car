@@ -12,18 +12,30 @@ $(document).ready(function() {
     });
 
     $('.ans-button').click(function () {
-        userAnswers.push($('input[name=radio-question]:checked').val());
-        var isCorrect = $('input[name=radio-question]:checked').parents('label').find('.answerCorrect').val() === 'true';
+        var ansId = $('input[name=radio-question]:checked').val();
+        userAnswers.push(ansId);
 
-        if(isCorrect) {
-            sumCorrectAnswers++;
-            nextQuestion();
-        }else{
-            $(this).parents('.question' + questionNumber).find('.wrong-ans-text').removeClass('hidden');
-            $(this).parents('.question' + questionNumber).find('.ans-button').addClass('hidden');
-            $(this).parents('.question' + questionNumber).find('.wrong-ans-button').removeClass('hidden');
-        }
+        checkAnswer(ansId, this);
     });
+
+    function checkAnswer(ansId, button) {
+        $.ajax({
+            url: "/checkAnswer",
+            method: 'POST',
+            data: {
+                answerId: ansId
+            }
+        }).done(function(response) {
+            if(response) {
+                sumCorrectAnswers++;
+                nextQuestion();
+            }else{
+                $(button).parents('.question' + questionNumber).find('.wrong-ans-text').removeClass('hidden');
+                $(button).parents('.question' + questionNumber).find('.ans-button').addClass('hidden');
+                $(button).parents('.question' + questionNumber).find('.wrong-ans-button').removeClass('hidden');
+            }
+        });
+    }
 
     $('.wrong-ans-button').click(function () {
         nextQuestion();

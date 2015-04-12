@@ -5,7 +5,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Blob;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Question")
@@ -48,11 +51,11 @@ public class Question {
 
     @OneToMany
     @JoinColumn(name = "Question_id")
-    private Set<Answer> answers  = new HashSet<>(0);
+    private Set<Answer> answers = new HashSet<>(0);
 
     @OneToMany
     @JoinColumn(name = "Question_id")
-    private Set<UserAnswer> userAnswers  = new HashSet<>(0);
+    private Set<UserAnswer> userAnswers = new HashSet<>(0);
 
     public Set<Answer> getAnswers() {
         return answers;
@@ -138,14 +141,16 @@ public class Question {
 
         answers = new HashSet<>();
 
-        for(Iterator<Answer> i = allAnswers.iterator(); i.hasNext(); ) {
+        for (Iterator<Answer> i = allAnswers.iterator(); i.hasNext(); ) {
 
             final Answer answer = i.next();
 
-            if(answer.getQuestion_id() == Question_id) {
+            if (answer.getQuestion_id() == Question_id) {
                 answers.add(answer);
             }
         }
 
     }
+
+
 }

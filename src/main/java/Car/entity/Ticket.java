@@ -19,6 +19,10 @@ public class Ticket {
     @JoinColumn(name = "Ticket_id")
     private Set<Question> questions = new HashSet<>(0);
 
+    @OneToMany
+    @JoinColumn(name = "Ticket_id")
+    private Set<Test> tests = new HashSet<>(0);
+
     public int getTicket_id() {
         return Ticket_id;
     }
@@ -35,6 +39,12 @@ public class Ticket {
         this.questions = questions;
     }
 
+    public Set<Test> getTests() {
+        return tests;
+    }
 
+    public void setTests(Set<Test> tests) {
+        this.tests = tests;
+    }
 }
 

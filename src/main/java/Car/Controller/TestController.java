@@ -41,38 +41,46 @@ public class TestController {
         return "test";
     }
 
-    @RequestMapping(value="/setUserAnswers", method = RequestMethod.POST)
-    public @ResponseBody
+    @RequestMapping(value = "/checkAnswer", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    boolean checkAnswer(HttpSession session, HttpServletResponse response, @RequestParam Integer answerId) throws Exception {
+        return testService.getAnswer(answerId).isCorrect();
+    }
+
+    @RequestMapping(value = "/setUserAnswers", method = RequestMethod.POST)
+    public
+    @ResponseBody
     String setUserAnswers(HttpSession session, HttpServletResponse response, @RequestParam String userAnswers,
-                          @RequestParam Integer testType, @RequestParam Integer testId) throws Exception {
+                          @RequestParam TestType testType, @RequestParam Integer testId) throws Exception {
 
         List<Integer> answers = Arrays.asList(serializer.fromJson(userAnswers, Integer[].class));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String userName = authentication.getName();
             User user = userService.getUserByLogin(userName);
 
 
             Date date = new Date(new java.util.Date().getTime());
-            if(testType == 1) {
+            if (testType.equals(TestType.TICKET)) {
                 Test test = testService.checkIfTicketWasPassedBefore(user.getUser_id(), testId);
-                if(test.getTest_id() != null) {
+                if (test.getTest_id() != null) {
                     testService.deleteTest(test.getTest_id());
                 }
 
-                testService.addNewTest(user.getUser_id(), date);
-                Integer generatedTestId = testService.getTestId(user.getUser_id(), date);
+                testService.addNewTicketTest(user.getUser_id(), date, testId);
+                Integer generatedTestId = testService.getTestTicketId(user.getUser_id(), date, testId);
 
                 testService.insertUserAnswers(answers, user.getUser_id(), generatedTestId);
 
-            }else{
+            } else if (testType.equals(TestType.TOPIC)) {
                 Test test = testService.checkIfTopicWasPassedBefore(user.getUser_id(), testId);
-                if(test.getTest_id() != null) {
+                if (test.getTest_id() != null) {
                     testService.deleteTest(test.getTest_id());
                 }
-                testService.addNewTest(user.getUser_id(), date);
-                Integer generatedTestId = testService.getTestId(user.getUser_id(), date);
+                testService.addNewTopicTest(user.getUser_id(), date, testId);
+                Integer generatedTestId = testService.getTestTopicId(user.getUser_id(), date, testId);
 
                 testService.insertUserAnswers(answers, user.getUser_id(), generatedTestId);
             }
